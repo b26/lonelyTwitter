@@ -27,9 +27,10 @@ public class LonelyTwitterActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		// do something my parent class is doing
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		// grabbing body text from input box
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
