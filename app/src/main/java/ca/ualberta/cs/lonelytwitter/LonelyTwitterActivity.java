@@ -1,11 +1,15 @@
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,11 +22,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 public class LonelyTwitterActivity extends Activity {
 
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
+	private ArrayAdapter<Tweet> adapter;
+	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+	private Gson gson;
+
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -33,6 +44,7 @@ public class LonelyTwitterActivity extends Activity {
 		// grabbing body text from input box
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
+		Button clearButton = (Button) findViewById(R.id.clear);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
@@ -41,29 +53,18 @@ public class LonelyTwitterActivity extends Activity {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
 				Tweet newestTweet = new NormalTweet(text);
-				// educational example to get message -> newestTweet.getMessage();
-				try {
-					newestTweet.setMessage("length abiding message");
-				}
+				tweets.add(newestTweet);
+				adapter.notifyDataSetChanged();
+				saveInFile();
 
-				catch (TweetTooLongException tweetlong) {
-					// catches teh tweet too long exception
-					// or any custom exception
-				}
+			}
+		});
 
-				catch (Exception e) {
-					// this will catch all exceptions that might
-					// occur during run-time, including io exceptions
-					System.err.print("This text was too long: " + text);
-					// Do something to solve the issue!
-				}
-
-				if (newestTweet.isImportant()) {
-					// do something
-				}
-				saveInFile(text, new Date(System.currentTimeMillis()));
-				finish();
-
+		clearButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				tweets.clear();
+				saveInFile();
+				adapter.notifyDataSetChanged();
 			}
 		});
 	}
@@ -72,46 +73,55 @@ public class LonelyTwitterActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		String[] tweets = loadFromFile();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		loadFromFile();
+		 adapter = new ArrayAdapter<Tweet>(this,
 				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(adapter);
 	}
 
-	private String[] loadFromFile() {
-		ArrayList<String> tweets = new ArrayList<String>();
+	private void loadFromFile() {
+		//ArrayList<String> tweets = new ArrayList<String>();
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
 			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-			String line = in.readLine();
-			while (line != null) {
-				tweets.add(line);
-				line = in.readLine();
-			}
+			gson = new Gson();
+
+			/* take from google documentation.
+			https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html
+			*/
+			Type listType = new TypeToken<ArrayList<NormalTweet>>() {}.getType();
+
+			/*  ptr changes. */
+			tweets = gson.fromJson(in, listType);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			tweets = new ArrayList<Tweet>();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return tweets.toArray(new String[tweets.size()]);
 	}
 	
-	private void saveInFile(String text, Date date) {
+	private void saveInFile() {
 		try {
-			FileOutputStream fos = openFileOutput(FILENAME,
-					Context.MODE_APPEND);
-			fos.write(new String(date.toString() + " | " + text)
-					.getBytes());
+			//debug mode for file output. can only be
+			//accessed by this app only. Or set it to 0, replace Context.MODE_PRIVATE with 0.
+			FileOutputStream fos = openFileOutput(FILENAME, 0);
+			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+			Gson gson = new Gson();
+			gson.toJson(tweets, out);
+			out.flush();
 			fos.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace(); //not useful
+			throw new RuntimeException();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new RuntimeException();
 		}
 	}
 }
