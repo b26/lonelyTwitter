@@ -43,7 +43,7 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         TweetList tweets = new TweetList();
         Tweet tweet = new NormalTweet("deleting");
         tweets.add(tweet);
-        tweets.delete(tweet);
+        tweets.removeTweet(tweet);
         assertFalse(tweets.hasTweet(tweet));
     }
 
@@ -64,7 +64,7 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         assertEquals(1, tweets.getCount());
         tweets.add(second);
         assertEquals(2, tweets.getCount());
-        tweets.delete(first);
+        tweets.removeTweet(first);
         assertEquals(1, tweets.getCount());
     }
 

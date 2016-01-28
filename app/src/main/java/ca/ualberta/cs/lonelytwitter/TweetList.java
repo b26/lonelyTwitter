@@ -21,7 +21,7 @@ public class TweetList {
         return tweets.contains(tweet);
     }
 
-    public void delete(Tweet tweet) {
+    public void removeTweet(Tweet tweet) {
         tweets.remove(tweet);
     }
 
