@@ -19,9 +19,12 @@ public abstract class Tweet {
     public Tweet(String message) {
         this.message = message;
         // TODO, set the date with a call to the date object.
-        this.date = new Date(System.currentTimeMillis());
+        this.date = new Date();
     }
 
+    public String getMessage() {
+        return message;
+    }
 
     public Date getDate() {
         return date;
