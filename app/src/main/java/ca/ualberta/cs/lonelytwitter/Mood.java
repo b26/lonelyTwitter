@@ -5,6 +5,12 @@ import java.util.Date;
 /**
  * Created by bashir1 on 1/14/16.
  */
+
+/**
+ * Abstract class only used in
+ * @see HappyMood
+ * @see SadMood
+ */
 public abstract class Mood {
     private Date date;
 

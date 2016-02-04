@@ -6,6 +6,13 @@ import java.util.Date;
 /**
  * Created by bashir1 on 1/14/16.
  */
+
+/**
+ * Abstract Tweet class
+ * @see NormalTweet
+ * @see ImportantTweet
+ * @see TweetList
+ */
 public abstract class Tweet {
     public String message;
     private ArrayList<Mood> mood;
@@ -30,6 +37,11 @@ public abstract class Tweet {
         return date;
     }
 
+    /**
+     *
+     * @param message takes a string object. The message is from Tweet.getMessage
+     * @throws TweetTooLongException if Tweet is too long...
+     */
     public void setMessage(String message) throws TweetTooLongException {
         if (message.length() > 140) {
             throw new TweetTooLongException();
@@ -37,6 +49,13 @@ public abstract class Tweet {
         this.message = message;
     }
 
+    /**
+     *
+     * @param date takes a date object. new Date() is enough.
+     *             <code>
+     *             Tweet.setDate(new Date());
+     *             </code>
+     */
     public void setDate(Date date) {
         this.date = date;
     }

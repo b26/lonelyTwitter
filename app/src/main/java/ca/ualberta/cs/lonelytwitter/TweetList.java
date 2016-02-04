@@ -7,6 +7,14 @@ import java.util.Comparator;
 /**
  * Created by bashir1 on 1/28/16.
  */
+
+/**
+ * @see Tweet
+ * @see NormalTweet
+ * @see ImportantTweet
+ *
+ * Holds an ArrayList<Tweet>
+ */
 public class TweetList {
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 
@@ -25,6 +33,11 @@ public class TweetList {
         tweets.remove(tweet);
     }
 
+    /**
+     * grabs tweets and sorts them by date.
+     * @return a tweets object (ArrayList<tweet>)
+     * @see Tweet
+     */
     public ArrayList<Tweet> getTweets() {
         Collections.sort(tweets, new Comparator<Tweet>() {
             public int compare(Tweet t1, Tweet t2) {
@@ -35,6 +48,12 @@ public class TweetList {
         return tweets;
     }
 
+    /**
+     * getTweets returns the tweet you asked for.
+     * @param index is the index number of the tweet
+     * @return a tweet object
+     * @see Tweet
+     */
     public Tweet getTweet(int index) {
         return tweets.get(index);
     }
