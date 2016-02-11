@@ -38,6 +38,28 @@ public class LonelyTwitterActivityUITest extends ActivityInstrumentationTestCase
     //
     //
 
+    @UiThreadTest
+    public void testMakeTweet() {
+        LonelyTwitterActivity lonelyTwitterActivity = (LonelyTwitterActivity) getActivity();
+        int oldLength = lonelyTwitterActivity.getAdapter().getCount();
+        makeTweet("Free Bobby");
+        int newLength = lonelyTwitterActivity.getAdapter().getCount();
+        assertEquals("LOL DAT ERROR", oldLength + 1, newLength);
+
+        assertTrue("The object is not a Tweet!", lonelyTwitterActivity.getAdapter().getItem(lonelyTwitterActivity.getAdapter().getCount() - 1) instanceof Tweet);
+
+        Tweet tweet = lonelyTwitterActivity.getAdapter().getItem(lonelyTwitterActivity.getAdapter().getCount() - 1);
+
+        assertEquals("YOU HEARD WRONG PLAYA", tweet.getMessage(), "Free Bobby");
+    }
+
+
+
+
+
+
+
+
     //
     //
 }
