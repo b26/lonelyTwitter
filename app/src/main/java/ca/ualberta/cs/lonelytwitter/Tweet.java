@@ -43,8 +43,17 @@ public abstract class Tweet {
     public void addThumbnail(Bitmap newThumbnail) {
         if (newThumbnail != null) {
             thumbnail = newThumbnail;
+            ByteArrayOutputStream byeArrayBitmapStream = new ByteArrayOutputStream();
+            newThumbnail.compress(Bitmap.CompressFormat.PNG, 100, byeArrayBitmapStream);
         }
+    }
 
+    public Bitmap getThumbnail() {
+        if (thumbnail != null && thumbnailBase != null) {
+            byte[] decodeString = Base64.decode(thumbnailBase, Base64.DEFAULT);
+            thumbnail = BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
+        }
+        return thumbnail;
     }
 
     public abstract Boolean isImportant();

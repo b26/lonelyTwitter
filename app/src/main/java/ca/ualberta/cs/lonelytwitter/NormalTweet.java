@@ -1,10 +1,12 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class NormalTweet extends Tweet implements Tweetable {
-    public NormalTweet(Date date, String message) {
-        super(date, message);
+    public NormalTweet(Date date, String message, Bitmap thumbnail) {
+        super(date, message, thumbnail);
     }
 
     public NormalTweet(String message) {
