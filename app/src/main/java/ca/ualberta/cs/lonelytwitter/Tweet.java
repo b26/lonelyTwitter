@@ -25,16 +25,26 @@ public abstract class Tweet {
 
     protected Date date;
     protected String message;
+    protected transient Bitmap thumbnail;
+    protected String thumbnailBase;
 
 
-    public Tweet(Date date, String message) {
+    public Tweet(Date date, String message, Bitmap thumbnail) {
         this.date = date;
         this.message = message;
+        this.thumbnail = thumbnail;
     }
 
     public Tweet(String message) {
         this.message = message;
         this.date = new Date();
+    }
+
+    public void addThumbnail(Bitmap newThumbnail) {
+        if (newThumbnail != null) {
+            thumbnail = newThumbnail;
+        }
+
     }
 
     public abstract Boolean isImportant();
