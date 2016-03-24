@@ -21,10 +21,7 @@ public class LonelyTwitterActivity extends Activity {
     private ListView oldTweetsList;
 
     private TweetList myTweets;
-    private ArrayList<Tweet> tweets;
     private ArrayAdapter<Tweet> adapter;
-
-    private Button saveButton;
 
     public ArrayAdapter<Tweet> getAdapter() {
         return adapter;
@@ -59,7 +56,7 @@ public class LonelyTwitterActivity extends Activity {
             }
         });
 
-        saveButton = (Button) findViewById(R.id.saveButton);
+        Button saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -77,7 +74,7 @@ public class LonelyTwitterActivity extends Activity {
                 addTweetTask.execute(latestTweet);
 
 
-	// http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
+                // http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
 
                 bodyText.setText("");
                 pictureButton.setImageResource(android.R.color.transparent);
@@ -97,7 +94,7 @@ public class LonelyTwitterActivity extends Activity {
 //        getTweetsTask.execute("test");
         getTweetsTask.execute("");
         try {
-            tweets = new ArrayList<Tweet>();
+            ArrayList<Tweet> tweets = new ArrayList<Tweet>();
             tweets.addAll(getTweetsTask.get());
             myTweets = new TweetList(tweets);
         } catch (InterruptedException e) {

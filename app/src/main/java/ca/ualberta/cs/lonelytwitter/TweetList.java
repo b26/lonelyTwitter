@@ -36,4 +36,15 @@ public class TweetList {
         tweets.remove(tweet);
     }
 
+    public int countImportant() {
+        int numImportant = 0;
+        for ( Tweet aTweet: tweets){
+            if (aTweet.isImportant() == Boolean.TRUE){
+                numImportant++;
+            }
+        }
+        return numImportant;
+    }
+
+
 }

@@ -5,16 +5,19 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <!-- added @string/myOldTweets -->
     <TextView
         android:id="@+id/tweetsTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="My old tweets" />
+        android:text="@string/myOldTweets" />
+
+    <!-- switching layout_height to 0dp for better performance -->
 
     <ListView
         android:id="@+id/tweetsList"
         android:layout_width="fill_parent"
-        android:layout_height="263dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="vertical"
         tools:listitem="@layout/list_item">

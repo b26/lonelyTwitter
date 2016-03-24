@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import com.google.gson.Gson;
+// 5. removing unused import statement. this is a large library and we don't need to import it
+// if it's being unused
+//import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
@@ -65,7 +67,7 @@ public abstract class Tweet {
     }
 
     //@Override
-    public abstract Boolean isImportant();
+    //public abstract Boolean isImportant();
 
     @Override
     public String toString() {
@@ -80,6 +82,12 @@ public abstract class Tweet {
         return date.toString() + " | " + message;
     }
 
+
+    //@Override
+    //@Override
+    public Boolean isImportant() {
+        return Boolean.TRUE;
+    }
 
     public Date getDate() {
         return this.date;

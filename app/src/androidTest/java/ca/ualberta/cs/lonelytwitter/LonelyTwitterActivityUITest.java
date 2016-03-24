@@ -5,7 +5,10 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+/* 1. removing unused import
+* there is no point of importing this library if its not being used.
+* */
+//import android.widget.Button;
 import android.widget.EditText;
 
 /**
@@ -32,7 +35,8 @@ public class LonelyTwitterActivityUITest extends ActivityInstrumentationTestCase
     private void makeTweet(String text) {
         assertNotNull(activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.saveButton));
         textInput.setText(text);
-        ((Button) activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.saveButton)).performClick();
+        /* 2. removing redundant type casting because this is already type Button */
+        (activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.saveButton)).performClick();
     }
 
     @UiThreadTest
@@ -44,8 +48,9 @@ public class LonelyTwitterActivityUITest extends ActivityInstrumentationTestCase
         ArrayAdapter<Tweet> arrayAdapter = lta.getAdapter();
         assertEquals(oldLength + 1, arrayAdapter.getCount());
 
+        /* 3. replacing boolean expression with != null for better performance */
         assertTrue("Did you add a Tweet object?",
-                arrayAdapter.getItem(arrayAdapter.getCount() - 1) instanceof Tweet);
+                arrayAdapter.getItem(arrayAdapter.getCount() - 1) != null);
 
         Tweet tweet = arrayAdapter.getItem(arrayAdapter.getCount() - 1);
         assertEquals("This is not the text we expected!", tweet.getMessage(),

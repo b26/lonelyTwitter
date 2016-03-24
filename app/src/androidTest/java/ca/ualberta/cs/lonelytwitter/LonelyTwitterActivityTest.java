@@ -1,6 +1,7 @@
 package ca.ualberta.cs.lonelytwitter;
 
-import android.app.Activity;
+/* commenting out unused import statement */
+//import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
@@ -13,7 +14,7 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
     }
 
     public void testStart() throws Exception {
-        Activity activity = getActivity();
-
+        /* commenting out unused assignment */
+        //Activity activity = getActivity();
     }
 }

@@ -5,5 +5,8 @@
     <string name="app_name">LonelyTwitter</string>
     <string name="save">Save</string>
     <string name="clear">Clear</string>
+    <!-- 4. adding string constant. having string constants makes the system run faster, but marginally
+        it's also better practice -->
+    <string name="myOldTweets">my old tweets</string>
 
 </resources>
